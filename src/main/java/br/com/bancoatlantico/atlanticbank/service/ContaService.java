@@ -13,9 +13,5 @@ public class ContaService {
 
 	@Autowired
 	ContaRepository contaRepository;
-	
-	public Conta cadastrarSaldoService(@RequestBody ContaDTO contaDTO) {
-		return contaRepository.getContaByToken(contaDTO.getToken());
-	}
-	
+
 }

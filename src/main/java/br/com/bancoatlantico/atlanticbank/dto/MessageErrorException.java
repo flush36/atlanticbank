@@ -4,15 +4,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code=HttpStatus.BAD_REQUEST)
-public class MessageErrorDTO extends Exception{
+public class MessageErrorException extends Exception{
 	
-	private String mensagem;
+	private ErroDTO mensagem;
 	
-	public MessageErrorDTO(String mensagem) {
+	public MessageErrorException(ErroDTO mensagem) {
 		this.mensagem = mensagem;
 	}
 
-	public String getMensagem() {
+	public ErroDTO getMensagem() {
 		return mensagem;
 	}
 

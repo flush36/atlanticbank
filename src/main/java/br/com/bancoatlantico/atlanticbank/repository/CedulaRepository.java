@@ -9,5 +9,5 @@ import br.com.bancoatlantico.atlanticbank.model.Cedula;
 public interface CedulaRepository extends JpaRepository<Cedula, Integer>{
 
 	@Query("SELECT u FROM Cedula u WHERE u.valorReal = :valorReal")
-	public Cedula inserirQuantidade(@Param("valorReal") int valorReal);
+	public Cedula selecionarCedula(@Param("valorReal") int valorReal);
 }

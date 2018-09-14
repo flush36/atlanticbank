@@ -1,4 +1,4 @@
-CREATE TABLE conta (
+CREATE TABLE  (
     idconta int not null auto_increment,
     saldo decimal(10,2) not null,
     saque decimal(10,2) not null,

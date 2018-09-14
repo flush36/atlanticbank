@@ -22,12 +22,12 @@ public class ContaResource {
 	@Autowired
 	ContaService contaService;
 	
-	@PostMapping
-	public ResponseEntity<?> cadastrarSaldo(@RequestBody ContaDTO contaDTO) {
-		Conta contaSalva = contaService.cadastrarSaldoService(contaDTO);
-		if(contaSalva !=null) {
-			return ResponseEntity.ok(contaSalva);
-		}
-		return ResponseEntity.badRequest().build();
-	}
+//	@PostMapping
+//	public ResponseEntity<?> cadastrarSaldo(@RequestBody ContaDTO contaDTO) {
+//		Conta contaSalva = contaService.cadastrarSaldoService(contaDTO);
+//		if(contaSalva !=null) {
+//			return ResponseEntity.ok(contaSalva);
+//		}
+//		return ResponseEntity.badRequest().build();
+//	}
 }

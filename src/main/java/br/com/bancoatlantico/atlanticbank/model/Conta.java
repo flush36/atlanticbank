@@ -20,11 +20,11 @@ public class Conta {
 	@Column(name="idconta")
 	private Integer id;
 	
-	private double saldo;
+	private Double saldo;
 	
-	private double saque;
+	private Double saque;
 	
-	private double deposito;
+	private Double deposito;
 	
 	@Column(name="data_operacao")
 	private Date dataOperacao;
@@ -32,7 +32,6 @@ public class Conta {
 	@OneToOne
 	@JoinColumn(name="fkuser")
 	private Usuario fkuser;
-
 
 	public Integer getId() {
 		return id;
@@ -42,27 +41,27 @@ public class Conta {
 		this.id = id;
 	}
 
-	public double getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 
-	public double getSaque() {
+	public Double getSaque() {
 		return saque;
 	}
 
-	public void setSaque(double saque) {
+	public void setSaque(Double saque) {
 		this.saque = saque;
 	}
 
-	public double getDeposito() {
+	public Double getDeposito() {
 		return deposito;
 	}
 
-	public void setDeposito(double deposito) {
+	public void setDeposito(Double deposito) {
 		this.deposito = deposito;
 	}
 

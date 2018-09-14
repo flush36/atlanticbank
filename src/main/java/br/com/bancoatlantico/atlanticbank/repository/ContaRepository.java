@@ -9,6 +9,4 @@ import br.com.bancoatlantico.atlanticbank.model.Conta;
 
 public interface ContaRepository extends JpaRepository<Conta, Integer>{
 
-	@Query("SELECT u FROM Conta u WHERE u.fkuser.token = :token")
-	public Conta getContaByToken(@Param("token") String token);
 }

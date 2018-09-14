@@ -2,13 +2,15 @@ package br.com.bancoatlantico.atlanticbank.resource;
 
 import java.util.Optional;
 
+import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bancoatlantico.atlanticbank.dto.MessageErrorDTO;
+import br.com.bancoatlantico.atlanticbank.dto.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Usuario;
 import br.com.bancoatlantico.atlanticbank.service.UsuarioService;
 
@@ -25,7 +27,7 @@ public class UsuarioResource {
 		if(usuarioLogado.isPresent()) {
 			return ResponseEntity.ok(usuarioLogado);
 		}
-		return ResponseEntity.ok(new MessageErrorDTO("Usuário não encontrado"));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErroDTO("Usuario não encontrado"));
 	}	
 	
 }
