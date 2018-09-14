@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
-import br.com.bancoatlantico.atlanticbank.dto.MessageErrorException;
+import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 import br.com.bancoatlantico.atlanticbank.service.CedulaService;
 

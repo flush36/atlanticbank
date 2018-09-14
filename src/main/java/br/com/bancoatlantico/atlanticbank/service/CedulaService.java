@@ -2,12 +2,12 @@ package br.com.bancoatlantico.atlanticbank.service;
 
 import java.util.List;
 
-import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
-import br.com.bancoatlantico.atlanticbank.dto.MessageErrorException;
+import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
+import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
 
