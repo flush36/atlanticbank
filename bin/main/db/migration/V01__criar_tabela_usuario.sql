@@ -4,6 +4,7 @@ CREATE TABLE usuario (
     iduser int not null auto_increment,
     login varchar(50),
     senha varchar(50),
+    token varchar(70),
     tipo_usuario varchar(1),
     PRIMARY KEY (iduser)
 );

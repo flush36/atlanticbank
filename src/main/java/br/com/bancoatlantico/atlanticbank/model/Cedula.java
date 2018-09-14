@@ -1,11 +1,8 @@
 package br.com.bancoatlantico.atlanticbank.model;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,26 +11,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cedulas")
 public class Cedula {
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="idCedula")
 	private Integer id;
 	
 	private int quantidade;
 	
-	@Column(name="valor_real")
-	private double valorReal;
-	
 	private String descricao;
+	
+	@Column(name="valor_real")
+	private int valorReal;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 
 	public int getQuantidade() {
 		return quantidade;
@@ -43,20 +33,28 @@ public class Cedula {
 		this.quantidade = quantidade;
 	}
 
-	public double getValorReal() {
-		return valorReal;
-	}
-
-	public void setValorReal(double valorReal) {
-		this.valorReal = valorReal;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public int getValorReal() {
+		return valorReal;
+	}
+
+	public void setValorReal(int valorReal) {
+		this.valorReal = valorReal;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override
@@ -83,4 +81,9 @@ public class Cedula {
 			return false;
 		return true;
 	}
+
+	
+	
 }
+
+	

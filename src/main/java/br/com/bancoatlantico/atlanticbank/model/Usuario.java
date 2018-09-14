@@ -20,6 +20,16 @@ public class Usuario {
 	
 	private String senha;
 	
+	private String token;
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Column(name="tipo_usuario")
 	private String tipoUsuario;
 
