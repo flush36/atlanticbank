@@ -32,4 +32,12 @@ public class UsuarioService {
 	private String gerarToken(String login, String senha) {
 		return Utils.md5(Math.random() * 10+0 + login + senha + new Date().getTime());
 	}
+
+	public Usuario findByToken(String token) throws MessageErrorException {
+		 Usuario findByToken = usuarioRepository.findByToken(token);
+		 if(findByToken == null ) {
+			 throw new MessageErrorException(new ErroDTO("Não existe uma sessão para este usuario."));
+		 }
+		return findByToken;
+	}
 }

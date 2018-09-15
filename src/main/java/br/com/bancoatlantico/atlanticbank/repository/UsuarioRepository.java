@@ -10,4 +10,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
 	@Query("SELECT u FROM Usuario u WHERE u.login = :login AND u.senha = :senha")
 	public Usuario logarUserRepository(@Param("login") String login, @Param("senha") String senha );
+
+	@Query("SELECT u FROM Usuario u WHERE u.token = :token")
+	public Usuario findByToken(@Param("token") String token);
 }
