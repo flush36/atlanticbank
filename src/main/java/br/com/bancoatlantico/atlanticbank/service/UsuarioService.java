@@ -5,12 +5,12 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Util.Utils;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
 import br.com.bancoatlantico.atlanticbank.dto.UsuarioDTO;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Usuario;
 import br.com.bancoatlantico.atlanticbank.repository.UsuarioRepository;
+import br.com.bancoatlantico.atlanticbank.util.Utils;
 
 @Service
 public class UsuarioService {
