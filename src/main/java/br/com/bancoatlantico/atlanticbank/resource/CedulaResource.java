@@ -43,7 +43,7 @@ public class CedulaResource {
         }
     }
 	
-	@GetMapping
+	@GetMapping("todas-cedulas")
 	public ResponseEntity<List<Cedula>> getCedulas() {
 		return ResponseEntity.ok(cedulaService.getCedulas());
 	}

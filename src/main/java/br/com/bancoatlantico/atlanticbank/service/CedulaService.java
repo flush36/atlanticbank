@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
+import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
@@ -52,6 +53,21 @@ public class CedulaService {
 		return valorAtual - valorSubtrair;
 	}
 	
+	
+	public void verificarQuantidadeCedulasNoCaixa(List<CedulaDTO> cedulas) throws AlertErrorException {
+		for (CedulaDTO cedulaDTO : cedulas) {
+			Cedula cedulaSelecionada = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
+			if(cedulaSelecionada.getQuantidade() < cedulaDTO.getQuantidade()) {
+				throw new AlertErrorException(new ErroDTO("Quantidade de notas indisponivel para saque"));
+			}
+		}
+	}
+	
+	public void sacarCedulas(List<CedulaDTO> cedulas) throws Exception {
+		for (CedulaDTO cedulaDTO : cedulas) {
+			saqueCedula(cedulaDTO);
+		}
+	}
 	
 	public List<Cedula> getCedulas() {
 		return cedulaRepository.findAll();

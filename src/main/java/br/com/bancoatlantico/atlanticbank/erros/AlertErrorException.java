@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
 
-public class MessageErrorException extends Exception{
-	
+public class AlertErrorException extends Exception {
+
 	private ErroDTO mensagem;
-	
-	public MessageErrorException(ErroDTO mensagem) {
+
+	public AlertErrorException(ErroDTO mensagem) {
 		this.mensagem = mensagem;
 	}
 
