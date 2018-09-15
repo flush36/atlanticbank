@@ -15,6 +15,10 @@ public class CedulaDTO {
 		this.descricao = descricao;
 	}
 	
+	public CedulaDTO()  {
+	}
+	
+	
 	public String getDescricao() {
 		return descricao;
 	}

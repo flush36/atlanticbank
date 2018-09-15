@@ -49,11 +49,9 @@ public class ContaResource {
 			return ResponseEntity.ok(contaService.montarExtrato(usuario, cedulas, contaAtualizada));
 			
 		}catch (AlertErrorException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new AlertErrorException(new ErroDTO(e.getMensagem().getMsg())));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMensagem());
 		}catch (MessageErrorException e) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body(new MessageErrorException(new ErroDTO(e.getMensagem().getMsg())));
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMensagem());
 		}catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("Erro interno, favor procurar a gerencia");
@@ -65,8 +63,7 @@ public class ContaResource {
 		 try {
 			return ResponseEntity.status(HttpStatus.OK).body(contaService.depositar(contaDTO, usuario));
 		} catch (MessageErrorException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new MessageErrorException(new ErroDTO(e.getMensagem().getMsg())));
+		    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMensagem());
 		}
 	}
 	
