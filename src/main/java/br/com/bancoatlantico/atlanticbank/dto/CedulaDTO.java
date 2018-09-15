@@ -1,0 +1,35 @@
+package br.com.bancoatlantico.atlanticbank.dto;
+
+public class CedulaDTO {
+
+	private Integer valorReal;
+	
+	private Integer quantidade;
+
+	private String descricao;
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Integer getValorReal() {
+		return valorReal;
+	}
+
+	public void setValorReal(Integer valorReal) {
+		this.valorReal = valorReal;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+}
