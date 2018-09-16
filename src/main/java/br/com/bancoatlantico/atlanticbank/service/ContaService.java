@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
@@ -16,7 +15,6 @@ import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Conta;
 import br.com.bancoatlantico.atlanticbank.model.Usuario;
 import br.com.bancoatlantico.atlanticbank.repository.ContaRepository;
-import br.com.bancoatlantico.atlanticbank.repository.UsuarioRepository;
 
 @Service
 public class ContaService {
@@ -24,16 +22,21 @@ public class ContaService {
 	@Autowired
 	ContaRepository contaRepository;
 	
-	public List<CedulaDTO> quantidadeCedulasParaPagar(ContaDTO contaDTO) {
+	public List<CedulaDTO> quantidadeCedulasParaPagar(ContaDTO contaDTO) throws MessageErrorException {
+		 if(contaDTO.getValor() == null || contaDTO.getValor() < 2 || contaDTO.getValor() == 3) {
+			 throw new MessageErrorException(new ErroDTO("Valor indisponivel para saque."));
+		 }
 		 List<CedulaDTO> processarNotas = processarNotas(contaDTO.getValor());
 		return processarNotas;
 	}
 	
 	public Conta sacar(Usuario usuario, ContaDTO contaDTO) throws MessageErrorException {
 		Conta contaUserBD = contaRepository.getByUser(usuario);
-		if(contaUserBD.getSaldo() < contaDTO.getValor()
-				|| contaDTO.getValor() <= 0 || contaDTO.getValor() > 10000) {
+		if(contaUserBD.getSaldo() < contaDTO.getValor()) {
 			throw new MessageErrorException(new ErroDTO("Valor indisponivel para saque."));
+		}
+		if(contaDTO.getValor() > 10000) {
+			throw new MessageErrorException(new ErroDTO("Valor máximo para saque 10.000R$."));
 		}
 		contaUserBD.setSaldo(subtrairSaldo(contaUserBD.getSaldo(), contaDTO.getValor()));
 		contaUserBD.setSaque(contaDTO.getValor());

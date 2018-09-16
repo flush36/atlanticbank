@@ -27,13 +27,16 @@ public class CedulaService {
 	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
 
 		try {
-			if (cedulaDTO.getValorReal() != null && cedulaDTO.getQuantidade() != null
-					&& cedulaDTO.getQuantidade() > 0) {
+			if (cedulaDTO.getQuantidade() > 0) {
 				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
 				return cedulaRepository.save(cedula);
 			}
-			throw new MessageErrorException(new ErroDTO("Valor saque não informado, favor informar o valor!"));
+			if(cedulaDTO.getQuantidade() < 0 ) {
+				throw new MessageErrorException(new ErroDTO("Valor saque não informado, favor informar o valor!"));
+			}
+			return null;
+			
 		}catch (NullPointerException e) {
 			throw new MessageErrorException(new ErroDTO("Este caixa trabalha apenas com as seguintes cedulas: 50, 20, 10, 5, 2."));
 		}
@@ -59,7 +62,7 @@ public class CedulaService {
 		for (CedulaDTO cedulaDTO : cedulas) {
 			Cedula cedulaSelecionada = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 			if(cedulaSelecionada.getQuantidade() < cedulaDTO.getQuantidade()) {
-				throw new AlertErrorException(new ErroDTO("Quantidade de notas indisponivel para saque"));
+				throw new AlertErrorException(new ErroDTO("Caixa sem dinheiro, favor tentar valor menor ou, tente outro caixa."));
 			}
 		}
 	}

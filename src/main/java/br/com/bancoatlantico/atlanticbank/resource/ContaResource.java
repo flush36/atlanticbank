@@ -1,14 +1,11 @@
 package br.com.bancoatlantico.atlanticbank.resource;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ContaDTO;
-import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
-import br.com.bancoatlantico.atlanticbank.dto.ExtratoDTO;
 import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Conta;
@@ -67,12 +62,4 @@ public class ContaResource {
 		}
 	}
 	
-//	@PostMapping
-//	public ResponseEntity<?> cadastrarSaldo(@RequestBody ContaDTO contaDTO) {
-//		Conta contaSalva = contaService.cadastrarSaldoService(contaDTO);
-//		if(contaSalva !=null) {
-//			return ResponseEntity.ok(contaSalva);
-//		}
-//		return ResponseEntity.badRequest().build();
-//	}
 }
