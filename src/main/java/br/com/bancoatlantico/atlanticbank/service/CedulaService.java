@@ -57,16 +57,6 @@ public class CedulaService {
 		return valorAtual - valorSubtrair;
 	}
 	
-	
-	public void verificarQuantidadeCedulasNoCaixa(List<CedulaDTO> cedulas) throws AlertErrorException {
-		for (CedulaDTO cedulaDTO : cedulas) {
-			Cedula cedulaSelecionada = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
-			if(cedulaSelecionada.getQuantidade() < cedulaDTO.getQuantidade()) {
-				throw new AlertErrorException(new ErroDTO("Caixa sem dinheiro, favor tentar valor menor ou, tente outro caixa."));
-			}
-		}
-	}
-	
 	public void sacarCedulas(List<CedulaDTO> cedulas) throws Exception {
 		for (CedulaDTO cedulaDTO : cedulas) {
 			saqueCedula(cedulaDTO);
