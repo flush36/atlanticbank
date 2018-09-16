@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
-import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
+import br.com.bancoatlantico.atlanticbank.model.Usuario;
 import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
 
 @Service
@@ -18,27 +18,32 @@ public class CedulaService {
 	@Autowired
 	CedulaRepository cedulaRepository;
 	
-	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO) throws MessageErrorException {
-		Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
-		cedula.setQuantidade(somarNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
-		return cedulaRepository.save(cedula);
+	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO, Usuario usuario) throws MessageErrorException {
+		
+		try {
+			if(!usuario.getTipoUsuario().equals("A")) {
+				throw new MessageErrorException(new ErroDTO(
+						"Este recurso requer privilegio de adiministrador."));
+			}
+			Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
+			cedula.setQuantidade(somarNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
+			return cedulaRepository.save(cedula);
+		}catch (NullPointerException e) {
+			throw new MessageErrorException(new ErroDTO(
+					"Este caixa trabalha apenas com as seguintes cedulas: 50, 20, 10, 5, 2, favor informar valor existente."));
+		}
+		
+		
 	}
 
 	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
-
 		try {
-			if (cedulaDTO.getQuantidade() > 0) {
 				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
 				return cedulaRepository.save(cedula);
-			}
-			if(cedulaDTO.getQuantidade() < 0 ) {
-				throw new MessageErrorException(new ErroDTO("Valor saque não informado, favor informar o valor!"));
-			}
-			return null;
-			
-		}catch (NullPointerException e) {
-			throw new MessageErrorException(new ErroDTO("Este caixa trabalha apenas com as seguintes cedulas: 50, 20, 10, 5, 2."));
+		}catch (Exception e) {
+			throw new MessageErrorException(new ErroDTO(
+					"Ocorreu um erro ao tentar efetuar seu pagamento, procure um gerente e informe o ocorrido."));
 		}
 	}
 
