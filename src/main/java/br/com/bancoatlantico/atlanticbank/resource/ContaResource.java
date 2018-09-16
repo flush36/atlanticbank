@@ -38,7 +38,6 @@ public class ContaResource {
 			@RequestAttribute(AllowConfiguration.AUTHETICATION) Usuario usuario) {
 		try {
 			List<CedulaDTO> cedulas = contaService.quantidadeCedulasParaPagar(contaDTO);
-			cedulaService.verificarQuantidadeCedulasNoCaixa(cedulas);
 			Conta contaAtualizada = contaService.sacar(usuario, contaDTO);
 			cedulaService.sacarCedulas(cedulas);
 			return ResponseEntity.ok(contaService.montarExtrato(usuario, cedulas, contaAtualizada));
