@@ -23,8 +23,6 @@ public class Cedula {
 	@Column(name="valor_real")
 	private int valorReal;
 
-	
-
 	public int getQuantidade() {
 		return quantidade;
 	}

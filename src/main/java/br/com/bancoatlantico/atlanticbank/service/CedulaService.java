@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
+import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
@@ -26,12 +27,16 @@ public class CedulaService {
 	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
 
 		try {
-			if (cedulaDTO.getValorReal() != null) {
+			if (cedulaDTO.getQuantidade() > 0) {
 				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
 				return cedulaRepository.save(cedula);
 			}
-			throw new MessageErrorException(new ErroDTO("Valor do saque não informado, favor informar o valor!"));
+			if(cedulaDTO.getQuantidade() < 0 ) {
+				throw new MessageErrorException(new ErroDTO("Valor saque não informado, favor informar o valor!"));
+			}
+			return null;
+			
 		}catch (NullPointerException e) {
 			throw new MessageErrorException(new ErroDTO("Este caixa trabalha apenas com as seguintes cedulas: 50, 20, 10, 5, 2."));
 		}
@@ -52,6 +57,21 @@ public class CedulaService {
 		return valorAtual - valorSubtrair;
 	}
 	
+	
+	public void verificarQuantidadeCedulasNoCaixa(List<CedulaDTO> cedulas) throws AlertErrorException {
+		for (CedulaDTO cedulaDTO : cedulas) {
+			Cedula cedulaSelecionada = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
+			if(cedulaSelecionada.getQuantidade() < cedulaDTO.getQuantidade()) {
+				throw new AlertErrorException(new ErroDTO("Caixa sem dinheiro, favor tentar valor menor ou, tente outro caixa."));
+			}
+		}
+	}
+	
+	public void sacarCedulas(List<CedulaDTO> cedulas) throws Exception {
+		for (CedulaDTO cedulaDTO : cedulas) {
+			saqueCedula(cedulaDTO);
+		}
+	}
 	
 	public List<Cedula> getCedulas() {
 		return cedulaRepository.findAll();

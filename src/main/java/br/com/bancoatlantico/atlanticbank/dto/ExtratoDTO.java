@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 
-public class EstratoDTO {
+public class ExtratoDTO {
 
 	private Date dataAtual;
 	
@@ -15,7 +15,7 @@ public class EstratoDTO {
 	
 	private Double valorSaque;
 	
-	private List<Cedula> cedulas;
+	private List<CedulaDTO> cedulasDTO;
 
 	public Date getDataAtual() {
 		return dataAtual;
@@ -49,12 +49,12 @@ public class EstratoDTO {
 		this.valorSaque = valorSaque;
 	}
 
-	public List<Cedula> getCedulas() {
-		return cedulas;
+	public List<CedulaDTO> getCedulas() {
+		return cedulasDTO;
 	}
 
-	public void setCedulas(List<Cedula> cedulas) {
-		this.cedulas = cedulas;
+	public void setCedulas(List<CedulaDTO> cedulasDTO) {
+		this.cedulasDTO = cedulasDTO;
 	}
 	
 	

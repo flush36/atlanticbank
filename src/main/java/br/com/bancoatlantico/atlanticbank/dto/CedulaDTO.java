@@ -9,6 +9,16 @@ public class CedulaDTO {
 	private String descricao;
 
 
+	public CedulaDTO(Integer valor, Integer quantidade, String descricao) {
+		this.valorReal = valor;
+		this.quantidade = quantidade;
+		this.descricao = descricao;
+	}
+	
+	public CedulaDTO()  {
+	}
+	
+	
 	public String getDescricao() {
 		return descricao;
 	}
