@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
-import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
+import br.com.bancoatlantico.atlanticbank.model.Usuario;
 import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
 
 @Service
@@ -18,30 +18,32 @@ public class CedulaService {
 	@Autowired
 	CedulaRepository cedulaRepository;
 	
-	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO) throws MessageErrorException {
-		Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
-		cedula.setQuantidade(somarNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
-		return cedulaRepository.save(cedula);
-	}
-
-	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
-
+	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO, Usuario usuario) throws MessageErrorException {
+		
 		try {
-			if(cedulaDTO.getQuantidade() <= 0 ) {
+			if(!usuario.getTipoUsuario().equals("A")) {
 				throw new MessageErrorException(new ErroDTO(
-						"Quantidade de cedulas para saque não informadas, favor informar a quantidade!"));
+						"Este recurso requer privilegio de adiministrador."));
 			}
-			if(cedulaDTO.getValorReal() <= 0 ) {
-				throw new MessageErrorException(new ErroDTO(
-						cedulaDTO.getValorReal() + " não é um valor valido."));
-			}
-				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
-				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
-				return cedulaRepository.save(cedula);
-			
+			Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
+			cedula.setQuantidade(somarNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
+			return cedulaRepository.save(cedula);
 		}catch (NullPointerException e) {
 			throw new MessageErrorException(new ErroDTO(
 					"Este caixa trabalha apenas com as seguintes cedulas: 50, 20, 10, 5, 2, favor informar valor existente."));
+		}
+		
+		
+	}
+
+	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
+		try {
+				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
+				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
+				return cedulaRepository.save(cedula);
+		}catch (Exception e) {
+			throw new MessageErrorException(new ErroDTO(
+					"Ocorreu um erro ao tentar efetuar seu pagamento, procure um gerente e informe o ocorrido."));
 		}
 	}
 

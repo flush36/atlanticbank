@@ -145,7 +145,7 @@ public class ContaService {
 			cedulas.add(dois);
 			return cedulas;
 		}catch (Exception e) {
-			throw new MessageErrorException(new ErroDTO("Este caixa não tem notas suficientes par efetuar o pagamento."));
+			throw new MessageErrorException(new ErroDTO("Erro insperado, favor procurar o gerente mais próximo.."));
 		}
 		
 		
