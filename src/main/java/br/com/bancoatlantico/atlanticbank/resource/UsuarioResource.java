@@ -3,7 +3,6 @@ package br.com.bancoatlantico.atlanticbank.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import br.com.bancoatlantico.atlanticbank.service.UsuarioService;
 public class UsuarioResource {
 
 	@Autowired
-	UsuarioService usuarioService;
+	private UsuarioService usuarioService;
 	
 	@PostMapping("logar")
 	public ResponseEntity<?> logar(@RequestBody UsuarioDTO usuarioDTO) {

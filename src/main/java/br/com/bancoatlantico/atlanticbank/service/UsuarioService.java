@@ -16,7 +16,7 @@ import br.com.bancoatlantico.atlanticbank.util.Utils;
 public class UsuarioService {
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	public Usuario logarUserService(UsuarioDTO usuarioDTO) throws MessageErrorException {
 			if(usuarioDTO.getLogin() != null && usuarioDTO.getSenha() != null) {
