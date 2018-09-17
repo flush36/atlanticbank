@@ -113,9 +113,9 @@ public class ContaService {
 						qtd_nota10++;
 					}
 				}
-				if (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque % -cinco.getValorReal()) != 3)
+				if (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque - cinco.getValorReal()) != 3)
 						&& valorSaque >= cinco.getValorReal()) {
-					while (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque % -cinco.getValorReal()) != 3)
+					while (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque  - cinco.getValorReal()) != 3)
 							&& valorSaque >= cinco.getValorReal() && verificarQuantidadeCedulasNoCaixa(cinco.getValorReal(), qtd_nota5)) {
 						valorSaque = valorSaque - cinco.getValorReal();
 						qtd_nota5++;

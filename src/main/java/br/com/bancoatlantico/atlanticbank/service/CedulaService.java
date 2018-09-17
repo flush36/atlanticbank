@@ -15,8 +15,9 @@ import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
 @Service
 public class CedulaService {
 
+	@SuppressWarnings("unused")
 	@Autowired
-	CedulaRepository cedulaRepository;
+	private CedulaRepository cedulaRepository;
 	
 	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO, Usuario usuario) throws MessageErrorException {
 		
@@ -36,7 +37,7 @@ public class CedulaService {
 		
 	}
 
-	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
+	private Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
 		try {
 				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
