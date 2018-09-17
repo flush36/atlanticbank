@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,12 +26,12 @@ import br.com.bancoatlantico.atlanticbank.service.ContaService;
 public class ContaResource {
 
 	@Autowired
-	ContaService contaService;
+	private ContaService contaService;
 	
 	@Autowired
-	CedulaService cedulaService;
-	
-	
+	private CedulaService cedulaService;
+
+
 	@PostMapping("sacar")
 	public ResponseEntity<?> sacar(@RequestBody ContaDTO contaDTO,
 			@RequestAttribute(AllowConfiguration.AUTHETICATION) Usuario usuario) {
