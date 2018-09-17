@@ -30,7 +30,7 @@ public class ContaService {
 	
 	public List<CedulaDTO> quantidadeCedulasParaPagar(ContaDTO contaDTO) throws MessageErrorException {
 		 if(contaDTO.getValor() == null || contaDTO.getValor() < 2 || contaDTO.getValor() == 3) {
-			 throw new MessageErrorException(new ErroDTO("Valor indisponivel para saque."));
+			 throw new MessageErrorException(new ErroDTO("Favor inserir um valor valido."));
 		 }
 		 List<CedulaDTO> processarNotas = processarNotas(contaDTO.getValor());
 		return processarNotas;
