@@ -15,8 +15,9 @@ import br.com.bancoatlantico.atlanticbank.repository.CedulaRepository;
 @Service
 public class CedulaService {
 
+	@SuppressWarnings("unused")
 	@Autowired
-	CedulaRepository cedulaRepository;
+	private CedulaRepository cedulaRepository;
 	
 	public Cedula cadastrarCedulasService(CedulaDTO cedulaDTO, Usuario usuario) throws MessageErrorException {
 		
@@ -36,11 +37,11 @@ public class CedulaService {
 		
 	}
 
-	public Cedula saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
+	private void saqueCedula(CedulaDTO cedulaDTO) throws MessageErrorException{
 		try {
 				Cedula cedula = cedulaRepository.selecionarCedula(cedulaDTO.getValorReal());
 				cedula.setQuantidade(subtrairNotas(cedula.getQuantidade(), cedulaDTO.getQuantidade()));
-				return cedulaRepository.save(cedula);
+			cedulaRepository.save(cedula);
 		}catch (Exception e) {
 			throw new MessageErrorException(new ErroDTO(
 					"Ocorreu um erro ao tentar efetuar seu pagamento, procure um gerente e informe o ocorrido."));

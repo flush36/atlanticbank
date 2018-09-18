@@ -11,7 +11,6 @@ import br.com.bancoatlantico.atlanticbank.dto.CedulaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ContaDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ErroDTO;
 import br.com.bancoatlantico.atlanticbank.dto.ExtratoDTO;
-import br.com.bancoatlantico.atlanticbank.erros.AlertErrorException;
 import br.com.bancoatlantico.atlanticbank.erros.MessageErrorException;
 import br.com.bancoatlantico.atlanticbank.model.Cedula;
 import br.com.bancoatlantico.atlanticbank.model.Conta;
@@ -23,14 +22,14 @@ import br.com.bancoatlantico.atlanticbank.repository.ContaRepository;
 public class ContaService {
 
 	@Autowired
-	ContaRepository contaRepository;
+	private ContaRepository contaRepository;
 	
 	@Autowired
-	CedulaRepository cedulaRepository;
+	private CedulaRepository cedulaRepository;
 	
 	public List<CedulaDTO> quantidadeCedulasParaPagar(ContaDTO contaDTO) throws MessageErrorException {
 		 if(contaDTO.getValor() == null || contaDTO.getValor() < 2 || contaDTO.getValor() == 3) {
-			 throw new MessageErrorException(new ErroDTO("Valor indisponivel para saque."));
+			 throw new MessageErrorException(new ErroDTO("Favor inserir um valor valido."));
 		 }
 		 List<CedulaDTO> processarNotas = processarNotas(contaDTO.getValor());
 		return processarNotas;
@@ -70,7 +69,7 @@ public class ContaService {
 
 	
 	
-	public List<CedulaDTO> processarNotas(Double valorSaque) throws MessageErrorException {
+	private List<CedulaDTO> processarNotas(Double valorSaque) throws MessageErrorException {
 		CedulaDTO cinquenta = new CedulaDTO(50, 0, "50R$ ");
 		CedulaDTO vinte = new CedulaDTO(20, 0, "20R$");
 		CedulaDTO dez = new CedulaDTO(10, 0, "10R$");
@@ -113,9 +112,9 @@ public class ContaService {
 						qtd_nota10++;
 					}
 				}
-				if (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque % -cinco.getValorReal()) != 3)
+				if (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque - cinco.getValorReal()) != 3)
 						&& valorSaque >= cinco.getValorReal()) {
-					while (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque % -cinco.getValorReal()) != 3)
+					while (((valorSaque - cinco.getValorReal()) != 1 && (valorSaque  - cinco.getValorReal()) != 3)
 							&& valorSaque >= cinco.getValorReal() && verificarQuantidadeCedulasNoCaixa(cinco.getValorReal(), qtd_nota5)) {
 						valorSaque = valorSaque - cinco.getValorReal();
 						qtd_nota5++;
@@ -163,7 +162,7 @@ public class ContaService {
 	
 	
 	private boolean verificarQuantidadeCedulasNoCaixa(Integer valorReal, Integer quantidade) {
-		
+
 			Cedula cedulaSelecionada = cedulaRepository.selecionarCedula(valorReal);
 			if(cedulaSelecionada.getQuantidade() <= quantidade) {
 				return false;
