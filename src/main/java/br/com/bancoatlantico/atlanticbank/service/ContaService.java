@@ -151,7 +151,7 @@ public class ContaService {
 	}
 
 	public Conta depositar(ContaDTO contaDTO, Usuario usuario) throws MessageErrorException {
-		if(contaDTO.getValor() <= 0 ) {
+		if(contaDTO.getValor() == null || contaDTO == null || contaDTO.getValor() <= 0 ) {
 			throw new MessageErrorException(new ErroDTO("Por favor inserir o valor a ser depositado."));
 		}
 		Conta contaUserBD = contaRepository.getByUser(usuario);
