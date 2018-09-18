@@ -28,7 +28,7 @@ public class ContaService {
 	private CedulaRepository cedulaRepository;
 	
 	public List<CedulaDTO> quantidadeCedulasParaPagar(ContaDTO contaDTO) throws MessageErrorException {
-		 if(contaDTO.getValor() == null || contaDTO.getValor() < 2 || contaDTO.getValor() == 3) {
+		 if(contaDTO == null ||  contaDTO.getValor() == null || contaDTO.getValor() < 2 || contaDTO.getValor() == 3) {
 			 throw new MessageErrorException(new ErroDTO("Favor inserir um valor valido."));
 		 }
 		 List<CedulaDTO> processarNotas = processarNotas(contaDTO.getValor());
