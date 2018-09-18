@@ -9,5 +9,4 @@ CREATE TABLE conta (
 	references usuario (iduser),
     PRIMARY KEY (idconta)
 );
-insert into conta(saldo, saque, deposito, data_operacao, fkuser) values(300, 230, 100,'2018-09-13', 1 );
-insert into conta(saldo, saque, deposito, data_operacao, fkuser) values(0, 0, 0,'2018-09-13', 2 );
+
