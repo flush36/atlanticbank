@@ -5,6 +5,7 @@ CREATE TABLE cedulas(
     valor_real int not null,
     PRIMARY KEY (id)
 );
+
 insert into cedulas(descricao, valor_real, quantidade) values('50R$', 50, 20);
 insert into cedulas(descricao, valor_real, quantidade) values('20R$', 20, 20);
 insert into cedulas(descricao, valor_real, quantidade) values('10R$', 10, 20);
